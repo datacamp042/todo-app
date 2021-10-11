@@ -11,7 +11,7 @@ const logger = createLogger('createTodo')
 export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   logger.info('Processing event: ', event)
   const newTodo: CreateTodoRequest = JSON.parse(event.body)
-
+  
   const authorization = event.headers.Authorization
   const split = authorization.split(' ')
   const jwtToken = split[1]
@@ -26,7 +26,7 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayProxyEven
       body: JSON.stringify({message: "Name of a task could not be empty"})
     }
   }
-
+  
   const newItem = await createTodo(newTodo, jwtToken)
 
   return {
